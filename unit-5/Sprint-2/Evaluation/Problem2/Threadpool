@@ -1,0 +1,51 @@
+2)A)Thread pool:- When we create different threads to every task it reduces its performance and consume more memory space 
+to reduce this we used thread pool executor.
+ThreadPool is a concept where a pool is already creates thread to do our task
+Example:- if we have 10 independence task to execute so we needs 10 threads but if we create a thread pool for 
+5 threads then we reduce the memory allocation because a threadpool do work for 5 task and another 5 task is done by another 
+thread pool.
+
+
+2)B)DeadLock:- A lock without key is known as deadLock. The reason behind deadLock is synchronized keyword
+To prevent deadLock 
+1.Avoid Nested Loop
+2.Avoid unnecessary lock
+3.Use thread.join()
+
+class Demo1 implements Runnable{
+public Synchronized void add(Demo2 obj1){
+ 
+ void run (){
+ }
+System.out.println("I am add function")
+}
+ obj1.sub();
+}
+
+class Demo2 implements Runnable{
+
+ void run (){
+ }
+ public Synchronized void sub(Demo1 obj2){
+ Sysstem.out.printLn("I am sub function of demo2)
+ }
+ obj2.add()
+ 
+ }
+ 
+ 
+ Class main{
+ public static void main(String args[]){
+ Demo1 dem1=new Demo1();
+ Demo2 dem2=new Demo2();
+ 
+ Thread t1=new Thread(dem1);
+ Thread t2=new Thread(dem2);
+ t1.start();
+ t2.start();
+ 
+ }
+
+
+ 
+

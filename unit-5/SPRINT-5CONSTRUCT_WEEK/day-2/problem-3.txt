@@ -1,0 +1,92 @@
+mysql> create table EmployeeDetails(EMPID INT,FULLNAME VARCHAR(20),MANAGERID INT,DATEOFJOINING DATE);
+Query OK, 0 rows affected (0.37 sec)
+
+mysql> INSERT INTO EMPLOYEEDETAILS VALUES(121,"JOHN SNOW",321,'2014-01-31');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO EMPLOYEEDETAILS VALUES(321,"WALTER WHITE",986,'2015-01-30');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO EMPLOYEEDETAILS VALUES(421,"KULDEEP RANA",876,'2016-11-27');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM EMPLOYEEDETAILS;
++-------+--------------+-----------+---------------+
+| EMPID | FULLNAME     | MANAGERID | DATEOFJOINING |
++-------+--------------+-----------+---------------+
+|   121 | JOHN SNOW    |       321 | 2014-01-31    |
+|   321 | WALTER WHITE |       986 | 2015-01-30    |
+|   421 | KULDEEP RANA |       876 | 2016-11-27    |
++-------+--------------+-----------+---------------+
+3 rows in set (0.03 sec)
+
+
+
+mysql> CREATE TABLE EMPLOYEESALARY(EMPID INT,PROJECT VARCHAR(2), SALARY INT, VARIABLE INT);
+Query OK, 0 rows affected (3.87 sec)
+
+mysql> INSERT INTO EMPLOYEESALARY VALUES(121,"P1",8000,500);
+Query OK, 1 row affected (0.31 sec)
+
+mysql> INSERT INTO EMPLOYEESALARY VALUES(321,"P2",10000,1000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO EMPLOYEESALARY VALUES(421,"P1",12000,0);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM EMPLOYEESALARY;
++-------+---------+--------+----------+
+| EMPID | PROJECT | SALARY | VARIABLE |
++-------+---------+--------+----------+
+|   121 | P1      |   8000 |      500 |
+|   321 | P2      |  10000 |     1000 |
+|   421 | P1      |  12000 |        0 |
++-------+---------+--------+----------+
+3 rows in set (0.00 sec)
+Q1))))1. Write an SQL query to fetch the employees whose name begins with any two characters, followed by a text “hn” and ending with any
+sequence of characters.
+
+mysql> SELECT * FROM EMPLOYEEDETAILS WHERE LEFT (FULLNAME,1) IN ("H","N");
+Empty set (0.06 sec)
+
+
+Q2)). Write an SQL query to fetch common records between two table
+
+mysql> SELECT * FROM EMPLOYEEDETAILS ED INNER JOIN EMPLOYEESALARY ES ON ED.EMPID=ES.EMPID;
++-------+--------------+-----------+---------------+-------+---------+--------+----------+
+| EMPID | FULLNAME     | MANAGERID | DATEOFJOINING | EMPID | PROJECT | SALARY | VARIABLE |
++-------+--------------+-----------+---------------+-------+---------+--------+----------+
+|   121 | JOHN SNOW    |       321 | 2014-01-31    |   121 | P1      |   8000 |      500 |
+|   321 | WALTER WHITE |       986 | 2015-01-30    |   321 | P2      |  10000 |     1000 |
+|   421 | KULDEEP RANA |       876 | 2016-11-27    |   421 | P1      |  12000 |        0 |
++-------+--------------+-----------+---------------+-------+---------+--------+----------+
+
+.q)3)) Write an SQL query to fetch records that are present in one table but not in another tabl
+
+mysql> SELECT * FROM EMPLOYEEDETAILS ED INNER JOIN EMPLOYEESALARY ES ON ED.EMPID!=ES.EMPID;
++-------+--------------+-----------+---------------+-------+---------+--------+----------+
+| EMPID | FULLNAME     | MANAGERID | DATEOFJOINING | EMPID | PROJECT | SALARY | VARIABLE |
++-------+--------------+-----------+---------------+-------+---------+--------+----------+
+|   421 | KULDEEP RANA |       876 | 2016-11-27    |   121 | P1      |   8000 |      500 |
+|   321 | WALTER WHITE |       986 | 2015-01-30    |   121 | P1      |   8000 |      500 |
+|   421 | KULDEEP RANA |       876 | 2016-11-27    |   321 | P2      |  10000 |     1000 |
+|   121 | JOHN SNOW    |       321 | 2014-01-31    |   321 | P2      |  10000 |     1000 |
+|   321 | WALTER WHITE |       986 | 2015-01-30    |   421 | P1      |  12000 |        0 |
+|   121 | JOHN SNOW    |       321 | 2014-01-31    |   421 | P1      |  12000 |        0 |
++-------+--------------+-----------+---------------+-------+---------+--------+----------+
+6 rows in set (0.02 sec)
+4. Write an SQL query to find the maximum, minimum, and average salary of the employees.
+
+Q)4)4. Write an SQL query to find the maximum, minimum, and average salary of the employees.
+
+mysql> SELECT MAX(SALARY),MIN(SALARY),AVG(SALARY) FROM EMPLOYEESALARY;
++-------------+-------------+-------------+
+| MAX(SALARY) | MIN(SALARY) | AVG(SALARY) |
++-------------+-------------+-------------+
+|       12000 |        8000 |  10000.0000 |
++-------------+-------------+-------------+
+
+Q5)))Fetch all the employees who are not working on any project
+
+mysql> SELECT * FROM EMPLOYEEDETAILS WHERE EMPID IN  (SELECT EMPID FROM EMPLOYEESALARY WHERE PROJECT=NULL);
+Empty set (0.05 sec)

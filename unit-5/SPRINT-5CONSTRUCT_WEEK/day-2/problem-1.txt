@@ -1,0 +1,32 @@
+Database changed
+mysql> create table person(id int primary key,email varchar(20));
+Query OK, 0 rows affected (2.13 sec)
+
+mysql> insert into person(1,"a@b.com");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"a@b.com")' at line 1
+mysql> insert into person values(1,"a@b.com");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into person values(2,"c@b.com");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into person values(3,"a@b.com");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from person;
++----+---------+
+| id | email   |
++----+---------+
+|  1 | a@b.com |
+|  2 | c@b.com |
+|  3 | a@b.com |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> select Email from person group by email, email having count(id)>1;
++---------+
+| Email   |
++---------+
+| a@b.com |
++---------+
+1 row in set (0.10 sec)

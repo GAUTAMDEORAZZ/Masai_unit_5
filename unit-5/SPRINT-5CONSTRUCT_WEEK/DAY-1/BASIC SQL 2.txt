@@ -1,0 +1,141 @@
+
+
+mysql> create table student(NAME VARCHAR(20),ROLLNO INT, BRANCH VARCHAR(20),CITY VARCHAR(20));
+Query OK, 0 rows affected (2.58 sec)
+
+mysql> INSERT INTO STUDENT VALUES("VIJAY",150,"CSE","CHENNAI");
+Query OK, 1 row affected (0.20 sec)
+
+mysql> INSERT INTO STUDENT VALUES("SITA",202,"ETC","KOLKATA");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO STUDENT VALUES("RAVI",300,"EEE","DELHI");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT VALUES("BASU",165,"ETC","CHENNAI");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO STUDENT VALUES("RASMI",107,"ETC","RKL");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT VALUES("KARAN",111,"CSE","CTC");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO STUDENT VALUES("REKHA",117,"BME","BBSR");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM STUDENT;
++-------+--------+--------+---------+
+| NAME  | ROLLNO | BRANCH | CITY    |
++-------+--------+--------+---------+
+| VIJAY |    150 | CSE    | CHENNAI |
+| SITA  |    202 | ETC    | KOLKATA |
+| RAVI  |    300 | EEE    | DELHI   |
+| BASU  |    165 | ETC    | CHENNAI |
+| RASMI |    107 | ETC    | RKL     |
+| KARAN |    111 | CSE    | CTC     |
+| REKHA |    117 | BME    | BBSR    |
++-------+--------+--------+---------+
+7 rows in set (0.07 sec)
+
+QUESTION) 1
+mysql> SELECT BRANCH , COUNT(*) STUDENTS FROM STUDENT GROUP BY BRANCH;
++--------+----------+
+| BRANCH | STUDENTS |
++--------+----------+
+| CSE    |        2 |
+| ETC    |        3 |
+| EEE    |        1 |
+| BME    |        1 |
++--------+----------+
+
+*************************************************************************************
+QUESTION) 2
+SELECT
+mysql> SELECT BRANCH , COUNT(*) STUDENTS FROM STUDENT WHERE BRANCH LIKE 'E%' GROUP BY BRANCH;
++--------+----------+
+| BRANCH | STUDENTS |
++--------+----------+
+| ETC    |        3 |
+| EEE    |        1 |
++--------+----------+
+
+*************************************************************************************
+QUESTION) 3
+
+
+mysql> ALTER TABLE STUDENT ADD  MARKS VARCHAR(25);
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++-------+--------+--------+---------+-------+
+| NAME  | ROLLNO | BRANCH | CITY    | MARKS |
++-------+--------+--------+---------+-------+
+| VIJAY |    150 | CSE    | CHENNAI | NULL  |
+| SITA  |    202 | ETC    | KOLKATA | NULL  |
+| RAVI  |    300 | EEE    | DELHI   | NULL  |
+| BASU  |    165 | ETC    | CHENNAI | NULL  |
+| RASMI |    107 | ETC    | RKL     | NULL  |
+| KARAN |    111 | CSE    | CTC     | NULL  |
+| REKHA |    117 | BME    | BBSR    | NULL  |
++-------+--------+--------+---------+-------+
+
+*************************************************************************************
+QUESTION) 4
+
+mysql> ALTER TABLE STUDENT MODIFY NAME VARCHAR(25);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+*************************************************************************************
+QUESTION) 5
+mysql> DELETE FROM STUDENT WHERE BRANCH="ETC";
+Query OK, 3 rows affected (0.15 sec)
+
+mysql> SELECT * FROM STUDENT;
++-------+--------+--------+---------+-------+
+| NAME  | ROLLNO | BRANCH | CITY    | MARKS |
++-------+--------+--------+---------+-------+
+| VIJAY |    150 | CSE    | CHENNAI | NULL  |
+| RAVI  |    300 | EEE    | DELHI   | NULL  |
+| KARAN |    111 | CSE    | CTC     | NULL  |
+| REKHA |    117 | BME    | BBSR    | NULL  |
++-------+--------+--------+---------+-------+
+
+*************************************************************************
+QUESTION)6
+mysql> ALTER TABLE STUDENT RENAME TO  STUDENTINFORMATION;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> SELECT * FROM STUDENT;
+ERROR 1146 (42S02): Table 'constructweek.student' doesn't exist
+mysql> SELECT * FROM STUDENTINFORMATION;
++-------+--------+--------+---------+-------+
+| NAME  | ROLLNO | BRANCH | CITY    | MARKS |
++-------+--------+--------+---------+-------+
+| VIJAY |    150 | CSE    | CHENNAI | NULL  |
+| RAVI  |    300 | EEE    | DELHI   | NULL  |
+| KARAN |    111 | CSE    | CTC     | NULL  |
+| REKHA |    117 | BME    | BBSR    | NULL  |
++-------+--------+--------+---------+-------+
+
+
+
+*************************************************************************************
+QUESTION)7
+
+
+mysql> DELETE FROM STUDENT ;
+ERROR 1146 (42S02): Table 'constructweek.student' doesn't exist
+
+
+
+*************************************************************************************
+QUESTION)8
+
+mysql> DROP TABLE STUDENT;
+ERROR 1051 (42S02): Unknown table 'constructweek.student'
+mysql>
+
+*************************************************************************************

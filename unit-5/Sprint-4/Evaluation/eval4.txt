@@ -1,0 +1,218 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 58
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database evaluation4;
+Query OK, 1 row affected (1.56 sec)
+
+mysql> use evaluation4;
+Database changed
+mysql> create table Employee(id int primary key,name varchar(20),salary int,departmentId int);
+Query OK, 0 rows affected (3.48 sec)
+
+mysql> insert into employee values(1,"joe",85000,1);
+Query OK, 1 row affected (0.37 sec)
+
+mysql> insert into employee values(2,"Henry",80000,2);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employee values(3,"Sam",60000,2);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into employee values(4,"Max",90000,1);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values(5,"Jannet",69000,1);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employee values(6,Randy",85000,1);
+    ">
+    "> insert into employee values(6,Randy",85000,1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '",85000,1);
+
+insert into employee values(6,Randy",85000,1)' at line 1
+mysql> insert into employee values(6,"Randy",85000,1);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee values(7,"Will",70000,1);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> create table Department(id int,name varchar(20),foreign key(id) references employee(departmentId));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'department_ibfk_1' in the referenced table 'employee'
+mysql> create table Department(id int,name varchar(20),foreign key(id) references employee(departmentId));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'department_ibfk_1' in the referenced table 'employee'
+mysql> create table Department(departmentId int,name varchar(20),foreign key(departmentId) references employee(departmentId));
+ERROR 1822 (HY000): Failed to add the foreign key constraint. Missing index for constraint 'department_ibfk_1' in the referenced table 'employee'
+mysql> create table Department(Id int,name varchar(20));
+Query OK, 0 rows affected (0.58 sec)
+
+mysql> insert into department values(1,"IT");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into department values(2,"Sales");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> Select * from employee; select * from department;
++----+--------+--------+--------------+
+| id | name   | salary | departmentId |
++----+--------+--------+--------------+
+|  1 | joe    |  85000 |            1 |
+|  2 | Henry  |  80000 |            2 |
+|  3 | Sam    |  60000 |            2 |
+|  4 | Max    |  90000 |            1 |
+|  5 | Jannet |  69000 |            1 |
+|  6 | Randy  |  85000 |            1 |
+|  7 | Will   |  70000 |            1 |
++----+--------+--------+--------------+
+7 rows in set (0.06 sec)
+
++------+-------+
+| Id   | name  |
++------+-------+
+|    1 | IT    |
+|    2 | Sales |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select d.id,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id;
++------+----------+--------+
+| id   | Employee | salary |
++------+----------+--------+
+|    1 | joe      |  85000 |
+|    2 | Henry    |  80000 |
+|    2 | Sam      |  60000 |
+|    1 | Max      |  90000 |
+|    1 | Jannet   |  69000 |
+|    1 | Randy    |  85000 |
+|    1 | Will     |  70000 |
++------+----------+--------+
+7 rows in set (0.20 sec)
+
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary Desc;
++-------+----------+--------+
+| name  | Employee | salary |
++-------+----------+--------+
+| IT    | Max      |  90000 |
+| IT    | joe      |  85000 |
+| IT    | Randy    |  85000 |
+| Sales | Henry    |  80000 |
+| IT    | Will     |  70000 |
+| IT    | Jannet   |  69000 |
+| Sales | Sam      |  60000 |
++-------+----------+--------+
+7 rows in set (0.18 sec)
+
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary And o.id Desc;
+ERROR 1054 (42S22): Unknown column 'o.id' in 'order clause'
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary And d.id Desc;
++-------+----------+--------+
+| name  | Employee | salary |
++-------+----------+--------+
+| IT    | joe      |  85000 |
+| Sales | Henry    |  80000 |
+| Sales | Sam      |  60000 |
+| IT    | Max      |  90000 |
+| IT    | Jannet   |  69000 |
+| IT    | Randy    |  85000 |
+| IT    | Will     |  70000 |
++-------+----------+--------+
+7 rows in set (0.07 sec)
+
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary (select d.name order by d.id Desc);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select d.name order by d.id Desc)' at line 1
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary And d.name Desc;
++-------+----------+--------+
+| name  | Employee | salary |
++-------+----------+--------+
+| IT    | joe      |  85000 |
+| Sales | Henry    |  80000 |
+| Sales | Sam      |  60000 |
+| IT    | Max      |  90000 |
+| IT    | Jannet   |  69000 |
+| IT    | Randy    |  85000 |
+| IT    | Will     |  70000 |
++-------+----------+--------+
+7 rows in set, 2 warnings (0.08 sec)
+
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary;
++-------+----------+--------+
+| name  | Employee | salary |
++-------+----------+--------+
+| Sales | Sam      |  60000 |
+| IT    | Jannet   |  69000 |
+| IT    | Will     |  70000 |
+| Sales | Henry    |  80000 |
+| IT    | joe      |  85000 |
+| IT    | Randy    |  85000 |
+| IT    | Max      |  90000 |
++-------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary desc;
++-------+----------+--------+
+| name  | Employee | salary |
++-------+----------+--------+
+| IT    | Max      |  90000 |
+| IT    | joe      |  85000 |
+| IT    | Randy    |  85000 |
+| Sales | Henry    |  80000 |
+| IT    | Will     |  70000 |
+| IT    | Jannet   |  69000 |
+| Sales | Sam      |  60000 |
++-------+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary desc and d.name desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and d.name desc' at line 1
+mysql> select d.name,e.name Employee,e.salary from Employee e INNER JOIN Department d on e.departmentId=d.id order by e.salary desc and order by d.name desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and order by d.name desc' at line 1
+mysql> CREATE TABLE onlinecustomers (customerid INT PRIMARY KEY auto_increment ,CustomerName
+    -> VARCHAR(100) ,CustomerCity VARCHAR(100) ,Customermail VARCHAR(100));
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> CREATE TABLE orders (orderId INT PRIMARY KEY auto_increment , customerid INT ,ordertotal
+    -> float ,discountrate float ,orderdate DATETIME);
+Query OK, 0 rows affected (0.33 sec)
+
+mysql>  CREATE TABLE sales (salesId INT PRIMARY KEY auto_increment,orderId INT ,salestotal FLOAT);
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> insert into onlinecustomers(1,"Sumit","Delhi","sumit@gmail.com");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"Sumit","Delhi","sumit@gmail.com")' at line 1
+mysql> insert into onlinecustomers values(1,"Sumit","Delhi","sumit@gmail.com");
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into onlinecustomers values(2,"qumit","ranchi","aumit@gmail.com");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into onlinecustomers values(3,"Ramesh","Pune","ramesh@gmail.com");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into onlinecustomers values(4,"suresh","banglore","suresh@gmail.com");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select* from onlinecustomers;
++------------+--------------+--------------+------------------+
+| customerid | CustomerName | CustomerCity | Customermail     |
++------------+--------------+--------------+------------------+
+|          1 | Sumit        | Delhi        | sumit@gmail.com  |
+|          2 | qumit        | ranchi       | aumit@gmail.com  |
+|          3 | Ramesh       | Pune         | ramesh@gmail.com |
+|          4 | suresh       | banglore     | suresh@gmail.com |
++------------+--------------+--------------+------------------+
+4 rows in set (0.04 sec)
+
+mysql> insert into orders values(1,1,11.5,2021-6-23-
+    ->
+    -> select* from onlinecustomers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select* from onlinecustomers' at line 3
+mysql> create Database

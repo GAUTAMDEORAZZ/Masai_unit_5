@@ -1,0 +1,69 @@
+mysql> create database assignment2;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> use assignment2;
+Database changed
+mysql> create table Employee(Empid int, EmpName varchar(20), Department varchar(30), ContactNo varchar(15), EmailId varchar(30),EmpHeadId int);
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> insert into Employee values(101,'Isha','E-101','1234567890','isha@gmail.com',105);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into Employee values(102,'Priya','E-104','1234567890','priya@gmail.com',103);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Employee values(103,'Neha','E-101','1234567890','neha@gmail.com',101);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into Employee values(104,'Rahul','E-102','1234567890','rahul@gmail.com',105);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into Employee values(105,'Abhisek','E-101','1234567890','abhishek@gmail.com',102);
+Query OK, 1 row affected (0.08 sec)
+
+
+
+
+mysql> create table EmpDept(DeptId varchar(8),DepartName varchar(20),DepartmentOff varchar(15),DepatHead int );
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> insert into EmpDept values('E-101','HR','Monday',105);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into EmpDept values('E-102','Development','Tuesday',101);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into EmpDept values('E-103','House Keeping','Saturday',103);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into EmpDept values('E-104','Sales','Sunday',104);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into EmpDept values('E-105','Purchage','Tuesday',104);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select  * from EmpDept;
++--------+---------------+---------------+-----------+
+| DeptId | DepartName    | DepartmentOff | DepatHead |
++--------+---------------+---------------+-----------+
+| E-101  | HR            | Monday        |       105 |
+| E-102  | Development   | Tuesday       |       101 |
+| E-103  | House Keeping | Saturday      |       103 |
+| E-104  | Sales         | Sunday        |       104 |
+| E-105  | Purchage      | Tuesday       |       104 |
++--------+---------------+---------------+-----------+
+
+
+
+
+mysql> select* from Employee;
++-------+---------+------------+------------+--------------------+-----------+
+| Empid | EmpName | Department | ContactNo  | EmailId            | EmpHeadId |
++-------+---------+------------+------------+--------------------+-----------+
+|   101 | Isha    | E-101      | 1234567890 | isha@gmail.com     |       105 |
+|   102 | Priya   | E-104      | 1234567890 | priya@gmail.com    |       103 |
+|   103 | Neha    | E-101      | 1234567890 | neha@gmail.com     |       101 |
+|   104 | Rahul   | E-102      | 1234567890 | rahul@gmail.com    |       105 |
+|   105 | Abhisek | E-101      | 1234567890 | abhishek@gmail.com |       102 |
++-------+---------+------------+------------+--------------------+-----------+
+

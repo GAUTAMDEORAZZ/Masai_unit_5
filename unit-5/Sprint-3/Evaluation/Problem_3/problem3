@@ -1,0 +1,38 @@
+mysql> use database evaluation;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use database evaluation;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use evaluation;
+Database changed
+mysql> CREATE TABLE EMPLOYEE(id int,name varchar(20),salary varchar(8),managerId int,primary key(id));
+Query OK, 0 rows affected (2.41 sec)
+
+mysql> insert into employee values(1,'Joy','70000',3);
+Query OK, 1 row affected (0.67 sec)
+
+
+mysql> insert into employee values(2,'Henry','80000', 4);
+Query OK, 1 row affected (0.09 sec)
+
+
+mysql> insert into employee values(3,'Sam','60000',null);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employee values(4,'Max','90000',null);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from employee;
++----+-------+--------+-----------+
+| id | name  | salary | managerId |
++----+-------+--------+-----------+
+|  1 | Joy   | 70000  |         3 |
+|  2 | Henry | 80000  |         4 |
+|  3 | Sam   | 60000  |      NULL |
+|  4 | Max   | 90000  |      NULL |
++----+-------+--------+-----------+
+mysql> select name as Employee from Employee  Where salary>60000 AND salary<80000;
++----------+
+| Employee |
++----------+
+| Joy      |
++----------

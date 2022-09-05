@@ -1,0 +1,44 @@
+A condition in which the critical section (a part of program where shared memeory execuetd) is concurrently executed by two or more threads. it leads 
+to in correct behavior of a program.
+in simple word a race condition in which two or more threads coplete together to get shared resources.
+ class Counter implements Runnable{
+ private int c=0;
+ pubic void increament(){
+ try{
+ Threads.sleep(10);
+ }
+ 
+ catch(interuptedException e){
+ e.printStackTrace();
+ }
+ 
+ c++
+ }
+ public void decreament(){
+ c--
+ }
+ public int getValue(){
+ return c
+ }
+ pblic void run(){
+ this.incement();
+ System.out.println("value for thread after increament" +Thread.currentThreadI().getName()+"" +this.getvalue());
+ 
+ this.decreament();
+ 
+ System.out.println("value for thread after decreament" +Thread.currentThreadI().getName()+"" +this.getvalue());
+ }
+ }
+ public class RaceConditionDemo{
+ public static void main(String args[]){
+ Counter counter =new Counter();
+ Thread t1=new Thread(Counter, "Thread-1");
+ Thread t2=new Thread(Counter, "Thread-2");
+ Thread t3=new Thread(Counter, "Thread-3");
+ t1.start():
+ t2.start();
+ t3.start();
+ 
+ We avoid race condition using synchronized  .
+ 
+ 

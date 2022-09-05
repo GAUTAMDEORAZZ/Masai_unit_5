@@ -1,0 +1,272 @@
+mysql> CREATE table students(S_ID varchar(2), S_NAME VARCHAR(20), S_ADDRESS VARCHAR(30), S_PHONE CHAR(15), S_AGE INT);
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> INSERT INTO STUDENTS VALUES ("S1","RAM","DELHI", '9255121442',18);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO STUDENTS VALUES ("S2","RAMESH","GURGAON", '9655321742',18);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> INSERT INTO STUDENTS VALUES ("S3","SUJIT","CHANDIGARH", '9155321313',20);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO STUDENTS VALUES ("S4","SURESH","DELHI", '9155321371',18);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO STUDENTS VALUES ("S5","RATAN","DELHI", '9565321376',20);
+Query OK, 1 row affected (0.06 sec)
+
+-------------------------------------------------
+
+mysql> CREATE TABLE COURSE_TABLE(C_ID VARCHAR(2),C_NAME VARCHAR(10));
+Query OK, 0 rows affected (0.78 sec)
+
+mysql> INSERT INTO COURSE_TABLE VALUES('C1','DSA');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO COURSE_TABLE VALUES('C2','JAVA');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO COURSE_TABLE VALUES('C3','MERN');
+Query OK, 1 row affected (0.17 sec)
+
+ 
+ 
+ -------------------------------------------------
+ 
+mysql> CREATE TABLE STUDENT_COURSE_TABLE(S_ID VARCHAR(2), C_ID VARCHAR(02));
+Query OK, 0 rows affected (1.21 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S1','C1');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S1','C3');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S2','C1');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S3','C2');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S4','C2');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S4','C3');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO STUDENT_COURSE_TABLE VALUES('S5','C2');
+Query OK, 1 row affected (0.06 sec)
+
+
+mysql> SELECT * FROM STUDENTS; SELECT * FROM COURSE_TABBLE; SELECT * FROM STUDENT_COURSE_TABLE;
++------+--------+------------+------------+-------+
+| S_ID | S_NAME | S_ADDRESS  | S_PHONE    | S_AGE |
++------+--------+------------+------------+-------+
+| S1   | RAM    | DELHI      | 9255121442 |    18 |
+| S2   | RAMESH | GURGAON    | 9655321742 |    18 |
+| S3   | SUJIT  | CHANDIGARH | 9155321313 |    20 |
+| S4   | SURESH | DELHI      | 9155321371 |    18 |
+| S5   | RATAN  | DELHI      | 9565321376 |    20 |
++------+--------+------------+------------+-------+
+5 rows in set (0.00 sec)
+
+ERROR 1146 (42S02): Table 'masaiassignment.course_tabble' doesn't exist
++------+------+
+| S_ID | C_ID |
++------+------+
+| S1   | C1   |
+| S1   | C3   |
+| S2   | C1   |
+| S3   | C2   |
+| S4   | C2   |
+| S4   | C3   |
+| S5   | C2   |
++------+------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM COURSE_TABLE;
++------+--------+
+| C_ID | C_NAME |
++------+--------+
+| C1   | DSA    |
+| C2   | JAVA   |
+| C3   | MERN   |
++------+--------+
+
+1ST METHOD-----
+
+mysql> SELECT * FROM STUDENTS WHERE S_ADDRESS="DELHI" AND  S_ID IN (SELECT S_ID FROM STUDENT_COURSE_TABLE WHERE C_ID="C2");
++------+--------+-----------+------------+-------+
+| S_ID | S_NAME | S_ADDRESS | S_PHONE    | S_AGE |
++------+--------+-----------+------------+-------+
+| S4   | SURESH | DELHI     | 9155321371 |    18 |
+| S5   | RATAN  | DELHI     | 9565321376 |    20 |
++------+--------+-----------+------------+-------+
+
+2ND METHOD--------
+
+mysql> SELECT * FROM STUDENTS WHERE S_ADDRESS="DELHI" AND S_ID IN (SELECT S_ID FROM STUDENT_COURSE_TABLE WHERE C_ID IN (SELECT C_ID FROM COURSE_TABLE WHERE C_NAME="JAVA"));
++------+--------+-----------+------------+-------+
+| S_ID | S_NAME | S_ADDRESS | S_PHONE    | S_AGE |
++------+--------+-----------+------------+-------+
+| S4   | SURESH | DELHI     | 9155321371 |    18 |
+| S5   | RATAN  | DELHI     | 9565321376 |    20 |
++------+--------+-----------+------------+-------+
+
+
+((((((((((((((((((QUESTION NUMBER2))))))))))
+
+
+mysql> CREATE TABLE MOVIE (ID INT, TITLE VARCHAR(80), DIRECTOR VARCHAR(30), YEAR CHAR(4), LENGTH_MINUTES INT);
+
+
+mysql> CREATE TABLE MOVIE_RATING(MOVIE_ID INT, RATING FLOAT, DOMESTIC_SALES CHAR(20), INTERNATIONAL_SALES CHAR(20));
+
+
+mysql> INSERT INTO MOVIE VALUES(1,"TOY STORY",'JOHN LASSETER','1995' 81);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '81)' at line 1
+mysql> INSERT INTO MOVIE VALUES(1,"TOY STORY",'JOHN LASSETER','1995', 81);
+Query OK, 1 row affected (0.29 sec)
+
+mysql> INSERT INTO MOVIE VALUES(2,"A BUG''S LIFE",'JOHN  LASSETER','1998', 95);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO MOVIE VALUES(3,"TOY STORY 2",'JOHN  LASSETER','1999', 93);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO MOVIE VALUES(4,"MONSTERS ,INC",'PETER DOCTER','2001', 92);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO MOVIE VALUES(5,"CIVIL WAR",'ANDREW STANTON','2003', 107);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO MOVIE VALUES(6,"THE INCREDIBLLES",'BRAD BIRD','2004', 116);
+Query OK, 1 row affected (0.07 sec)
+mysql> SELECT * FROM MOVIE;
++------+------------------+----------------+------+----------------+
+| ID   | TITLE            | DIRECTOR       | YEAR | LENGTH_MINUTES |
++------+------------------+----------------+------+----------------+
+|    1 | TOY STORY        | JOHN LASSETER  | 1995 |             81 |
+|    2 | A BUG''S LIFE    | JOHN  LASSETER | 1998 |             95 |
+|    3 | TOY STORY 2      | JOHN  LASSETER | 1999 |             93 |
+|    4 | MONSTERS ,INC    | PETER DOCTER   | 2001 |             92 |
+|    5 | CIVIL WAR        | ANDREW STANTON | 2003 |            107 |
+|    6 | THE INCREDIBLLES | BRAD BIRD      | 2004 |            116 |
++------+------------------+----------------+------+----------------+
+
+mysql> INSERT INTO MOVIE_RATING VALUES(5,8.2,'380843261','555900000');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO MOVIE_RATING VALUES(1,7.4,'268492764','475066843');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO MOVIE_RATING VALUES(3,8,'206445654','417277164');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO MOVIE_RATING VALUES(2,6.4,'191452396','368400000');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO MOVIE_RATING VALUES(4,7.9,'245852179','239163000');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO MOVIE_RATING VALUES(6,8,'261441092','370001000');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM MOVIE; SELECT * FROM MOVIE_RATING;
++------+------------------+----------------+------+----------------+
+| ID   | TITLE            | DIRECTOR       | YEAR | LENGTH_MINUTES |
++------+------------------+----------------+------+----------------+
+|    1 | TOY STORY        | JOHN LASSETER  | 1995 |             81 |
+|    2 | A BUG''S LIFE    | JOHN  LASSETER | 1998 |             95 |
+|    3 | TOY STORY 2      | JOHN  LASSETER | 1999 |             93 |
+|    4 | MONSTERS ,INC    | PETER DOCTER   | 2001 |             92 |
+|    5 | CIVIL WAR        | ANDREW STANTON | 2003 |            107 |
+|    6 | THE INCREDIBLLES | BRAD BIRD      | 2004 |            116 |
++------+------------------+----------------+------+----------------+
+6 rows in set (0.00 sec)
+
++----------+--------+----------------+---------------------+
+| MOVIE_ID | RATING | DOMESTIC_SALES | INTERNATIONAL_SALES |
++----------+--------+----------------+---------------------+
+|        5 |    8.2 | 380843261      | 555900000           |
+|        1 |    7.4 | 268492764      | 475066843           |
+|        3 |      8 | 206445654      | 417277164           |
+|        2 |    6.4 | 191452396      | 368400000           |
+|        4 |    7.9 | 245852179      | 239163000           |
+|        6 |      8 | 261441092      | 370001000           |
++----------+--------+----------------+---------------------+
+6 rows in set (0.02 sec)
+
+mysql> SELECT TITLE,DOMESTIC_SALES,INTERNATIONAL_SALES FROM MOVIE LEFT JOIN  MOVIE_RATING ON MOVIE.ID=MOVIE_RATING.MOVIE_ID WHERE  INTERNATIONAL_SALES > DOMESTIC_SALES;
++------------------+----------------+---------------------+
+| TITLE            | DOMESTIC_SALES | INTERNATIONAL_SALES |
++------------------+----------------+---------------------+
+| TOY STORY        | 268492764      | 475066843           |
+| A BUG''S LIFE    | 191452396      | 368400000           |
+| TOY STORY 2      | 206445654      | 417277164           |
+| CIVIL WAR        | 380843261      | 555900000           |
+| THE INCREDIBLLES | 261441092      | 370001000           |
++------------------+----------------+---------------------+
+
+
+.QUESTION)3)))...........LIST OF ALL MOVIES BY THEIR RATING IN DESCENDING ORDER....................
+
+
+
+mysql> SELECT TITLE, RATING FROM MOVIE   LEFT JOIN MOVIE_RATING ON MOVIE.ID=MOVIE_RATING.MOVIE_ID  ORDER BY RATING DESC;
++------------------+--------+
+| TITLE            | RATING |
++------------------+--------+
+| CIVIL WAR        |    8.2 |
+| TOY STORY 2      |      8 |
+| THE INCREDIBLLES |      8 |
+| MONSTERS ,INC    |    7.9 |
+| TOY STORY        |    7.4 |
+| A BUG''S LIFE    |    6.4 |
++------------------+--------+
+
+QUESTION)4))))
+
+mysql> CREATE TABLE PERSON(PERSONID INT, LASTNAME VARCHAR(20), FIRSTNAME VARCHAR(20));
+Query OK, 0 rows affected (0.75 sec)
+
+mysql> CREATE TABLE ADDRESS(ADDRESSID INT,PERSONID INT,CITY VARCHAR(20),STATE VARCHAR(20));
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> INSERT INTO PERSON VALUES (1,"WANG",'ALLEN');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> INSERT INTO PERSON VALUES (2,"ALICE",'BOB');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO ADDRESS VALUES(1,2,"NEW YORK CITY",'NEW YORK');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> INSERT INTO ADDRESS VALUES(2,3,"SAN DIEGO",'CALIFORNIA');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> SELECT * FROM PERSON; SELECT * FROM ADDRESS;
++----------+----------+-----------+
+| PERSONID | LASTNAME | FIRSTNAME |
++----------+----------+-----------+
+|        1 | WANG     | ALLEN     |
+|        2 | ALICE    | BOB       |
++----------+----------+-----------+
+2 rows in set (0.00 sec)
+
++-----------+----------+---------------+------------+
+| ADDRESSID | PERSONID | CITY          | STATE      |
++-----------+----------+---------------+------------+
+|         1 |        2 | NEW YORK CITY | NEW YORK   |
+|         2 |        3 | SAN DIEGO     | CALIFORNIA |
++-----------+----------+---------------+------------+
+
+
+mysql> SELECT FIRSTNAME,LASTNAME,CITY,STATE FROM PERSON LEFT JOIN ADDRESS ON PERSON.PERSONID=ADDRESS.PERSONID;
++-----------+----------+---------------+----------+
+| FIRSTNAME | LASTNAME | CITY          | STATE    |
++-----------+----------+---------------+----------+
+| ALLEN     | WANG     | NULL          | NULL     |
+| BOB       | ALICE    | NEW YORK CITY | NEW YORK |
++-----------+----------+---------------+----------+

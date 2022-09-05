@@ -1,0 +1,53 @@
+
+
+
+
+
+mysql> SELECT * FROM CITY;
++------+--------------+-------------+-------------+------------+
+| ID   | NAME         | COUNTRYCODE | DISTRIC     | POPULATION |
++------+--------------+-------------+-------------+------------+
+| 3878 | SCOTTSDALE   | USA         | ARIZONA     |     202705 |
+| 3965 | CORONA       | USA         | CALLIFORNIA |      90000 |
+| 3977 | CEDAR RAPIDS | USA         | LOWA        |     120758 |
+
+| 3977 | CORAL SPRNGS | USA         | FLORIDA     |      87456 |
+| 3973 | CONCORD      | USA         | CALLIFORNIA |     121780 |
++------+--------------+-------------+-------------+------------+
+5 rows in set (0.19 sec)
+
+mysql> SELECT * FROM CITY WHERE POPULATION>100000;
++------+--------------+-------------+-------------+------------+
+| ID   | NAME         | COUNTRYCODE | DISTRIC     | POPULATION |
++------+--------------+-------------+-------------+------------+
+| 3878 | SCOTTSDALE   | USA         | ARIZONA     |     202705 |
+| 3977 | CEDAR RAPIDS | USA         | LOWA        |     120758 |
+| 3973 | CONCORD      | USA         | CALLIFORNIA |     121780 |
++------+--------------+-------------+-------------+------------+
+3 rows in set (0.04 sec)
+
+mysql> SELECT SUM(POPULATION) FROM CITY WHERE DISTRIC= "CALLIFORNIA";
++-----------------+
+| SUM(POPULATION) |
++-----------------+
+|          211780 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(POPULATION) FROM CITY;
++-----------------+
+| AVG(POPULATION) |
++-----------------+
+|     124539.8000 |
++-----------------+
+1 row in set (0.03 sec)
+
+mysql> SELECT ROUND(SELECT AVG (POPULATION) FROM CITY);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT AVG (POPULATION) FROM CITY)' at line 1
+mysql> SELECT ROUND(AVG (POPULATION)) FROM CITY;
++-------------------------+
+| ROUND(AVG (POPULATION)) |
++-------------------------+
+|                  124540 |
++-------------------------+
+1 row in set (0.12 sec)

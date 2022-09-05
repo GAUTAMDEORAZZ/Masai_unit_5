@@ -1,0 +1,9 @@
+Normalization is the process of organising the data in the database .Normalization is used to 
+minimizes the redundancy from a relation set of relation .it is used to elliminate undesirable chractersticks like insertion ,update 
+and deletion process in database.
+
+different types of Normalization
+1.1NF-first normalization form:- A relation Which contain one table .
+2. 2Nf-2nd normalization form: A relation will be 2nf if all non key attributes are fully functional dependent on primary key
+
+3.3Nf- 3rd normalization form:-if relation in 2nd Nf and no transition dependencies exists.

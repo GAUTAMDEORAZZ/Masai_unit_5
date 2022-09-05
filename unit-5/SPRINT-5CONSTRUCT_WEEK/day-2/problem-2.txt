@@ -1,0 +1,196 @@
+mysql> select * from worker;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+2 rows in set (0.11 sec)
+
+CREATE TABLE Worker (
+WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+FIRST_NAME CHAR(25),
+LAST_NAME CHAR(25),
+SALARY INT(15),
+JOINING_DATE DATETIME,
+DEPARTMENT CHAR(25)
+);
+
+mysql> insert into worker values(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+    -> insert into worker values(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into worker values(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00',' at line 2
+mysql> insert into worker values(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR');
+Query OK, 1 row affected, 1 warning (0.16 sec)
+
+mysql> insert into worker values(004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin');
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+mysql> insert into worker values(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin');
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> insert into worker values(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account');
+Query OK, 1 row affected, 1 warning (0.07 sec)
+
+mysql> insert into worker values(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account');
+Query OK, 1 row affected, 1 warning (0.06 sec)
+
+mysql> insert into worker values(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> select * from worker;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.05 sec)
+mysql> CREATE TABLE Bonus (
+    -> WORKER_REF_ID INT,
+    -> BONUS_AMOUNT INT(10),
+    -> BONUS_DATE DATETIME,
+    -> FOREIGN KEY (WORKER_REF_ID)
+    -> REFERENCES Worker(WORKER_ID)
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected, 1 warning (1.10 sec)
+
+mysql> INSERT INTO Bonus
+    ->
+    -> skjsak;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'skjsak' at line 3
+mysql> INSERT INTO Bonus values(001, 5000, '16-02-20');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> INSERT INTO Bonus values(002, 3000, '16-06-11');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Bonus values(003, 4000, '16-02-20');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Bonus values(001, 4500, '16-02-20');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Bonus values(002, 3500, '16-06-11');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from bonus;
++---------------+--------------+---------------------+
+| WORKER_REF_ID | BONUS_AMOUNT | BONUS_DATE          |
++---------------+--------------+---------------------+
+|             1 |         5000 | 2016-02-20 00:00:00 |
+|             2 |         3000 | 2016-06-11 00:00:00 |
+|             3 |         4000 | 2016-02-20 00:00:00 |
+|             1 |         4500 | 2016-02-20 00:00:00 |
+|             2 |         3500 | 2016-06-11 00:00:00 |
++---------------+--------------+---------------------+
+5 rows in set (0.00 sec)
+mysql> CREATE TABLE Title (
+    -> WORKER_REF_ID INT,
+    -> WORKER_TITLE CHAR(25),
+    -> AFFECTED_FROM DATETIME,
+    -> FOREIGN KEY (WORKER_REF_ID)
+    -> REFERENCES Worker(WORKER_ID)
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> INSERT INTO Title values(001, 'Manager', '2016-02-20 00:00:00');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO Title values(002, 'Executive', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO Title values(008, 'Executive', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Title values(005, 'Manager', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Title values(004, 'Asst. Manager', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO Title values(007, 'Executive', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Title values(006, 'Lead', '2016-06-11 00:00:00'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO Title values(006, 'Lead', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO Title values(003, 'Lead', '2016-06-11 00:00:00');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from title;
++---------------+---------------+---------------------+
+| WORKER_REF_ID | WORKER_TITLE  | AFFECTED_FROM       |
++---------------+---------------+---------------------+
+|             1 | Manager       | 2016-02-20 00:00:00 |
+|             2 | Executive     | 2016-06-11 00:00:00 |
+|             8 | Executive     | 2016-06-11 00:00:00 |
+|             5 | Manager       | 2016-06-11 00:00:00 |
+|             4 | Asst. Manager | 2016-06-11 00:00:00 |
+|             7 | Executive     | 2016-06-11 00:00:00 |
+|             6 | Lead          | 2016-06-11 00:00:00 |
+|             3 | Lead          | 2016-06-11 00:00:00 |
++---------------+---------------+---------------------+
+8 rows in set (0.00 sec)
+q.1))). Write an SQL query to show the second highest salary from a Worker table
+
+mysql> select max(salary) from worker where salary<(select max(salary) from worker);
++-------------+
+| max(salary) |
++-------------+
+|      300000 |
++-------------+
+*****************************************************************************
+q.2))))Write an SQL query to determine the 5 highest salary from a Worker table.mysql> select salary from worker order by salary desc limit 5;
++--------+
+| salary |
++--------+
+| 500000 |
+| 500000 |
+| 300000 |
+| 200000 |
+| 100000 |
++--------+
+
+***********************************************************************************
+q)3)))3. Write an SQL query to show only even rows from a Worker table.
+
+mysql> select * from worker where(WORKER_ID%2=0);
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q)4. Write an SQL query to fetch the no. of workers for each department in the descending order from the Worker table
+
+mysql> select department,count(*) no_of_worker from worker group by department order by no_of_worker desc;
++------------+--------------+
+| department | no_of_worker |
++------------+--------------+
+| Admin      |            4 |
+| HR         |            2 |
+| Account    |            2 |
++------------+--------------+
+
+q5))Write an SQL query to fetch the list of employees with the same salary from the Worker table
+mysql> select * from worker where salary in(select salary from worker w1 where worker.worker_id<>w1.worker_id);
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+

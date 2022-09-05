@@ -1,0 +1,75 @@
+mysql> CREATE TABLE customers (
+    -> customer_id INT NOT NULL PRIMARY KEY,
+    -> first_name VARCHAR(255) NOT NULL,
+    -> last_name VARCHAR(255) NOT NULL,
+    -> email VARCHAR(255) NOT NULL,
+    -> address VARCHAR(255) DEFAULT NULL,
+    -> city VARCHAR(255) DEFAULT NULL,
+    -> state VARCHAR(2) DEFAULT NULL,
+    -> zip_code VARCHAR(5) DEFAULT NULL
+    -> );
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> CREATE TABLE orders (
+    -> order_id INT NOT NULL PRIMARY KEY,
+    -> customer_id INT NOT NULL,
+    -> order_placed_date DATE NOT NULL,
+    -> FOREIGN KEY (customer_id) REFERENCES customers
+    -> (customer_id)
+    -> );
+Query OK, 0 rows affected (1.77 sec)
+
+mysql> INSERT INTO CUSTOMERS VALUES(1,"abc",'a','abc@gmail.com','1st street','chennai','TN','60001');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> INSERT INTO CUSTOMERS VALUES(2,"efg",'e','efg@gmail.com','2nd street','Banalore','KA','50002');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO CUSTOMERS VALUES(3,"ijk",'i','ijk@gmail.com','3rd street','Mumbai','MH','40002');
+Query OK, 1 row affected (0.03 sec)
+
+
+
+mysql> INSERT INTO ORDERS VALUES(1,1,"2016-11-11");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO ORDERS VALUES(2,1,"2016-10-01");
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO ORDERS VALUES(3,2,"2016-06-01");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO ORDERS VALUES(4,2,"2015-06-01");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO ORDERS VALUES(5,1,"2015-06-01");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT *FROM CUSTOMERS; SELECT * FROM ORDERS;
++-------------+------------+-----------+---------------+------------+----------+-------+----------+
+| customer_id | first_name | last_name | email         | address    | city     | state | zip_code |
++-------------+------------+-----------+---------------+------------+----------+-------+----------+
+|           1 | abc        | a         | abc@gmail.com | 1st street | chennai  | TN    | 60001    |
+|           2 | efg        | e         | efg@gmail.com | 2nd street | Banalore | KA    | 50002    |
+|           3 | ijk        | i         | ijk@gmail.com | 3rd street | Mumbai   | MH    | 40002    |
++-------------+------------+-----------+---------------+------------+----------+-------+----------+
+3 rows in set (0.00 sec)
+
++----------+-------------+-------------------+
+| order_id | customer_id | order_placed_date |
++----------+-------------+-------------------+
+|        1 |           1 | 2016-11-11        |
+|        2 |           1 | 2016-10-01        |
+|        3 |           2 | 2016-06-01        |
+|        4 |           2 | 2015-06-01        |
+|        5 |           1 | 2015-06-01        |
++----------+-------------+-------------------+
+
+
+mysql> SELECT EMAIL, COUNT(*) AS "ORDER_COUNT"  FROM CUSTOMERS LEFT JOIN ORDERS ON CUSTOMERS.CUSTOMER_ID=ORDERS.CUSTOMER_ID WHERE ORDER_PLACED_DATE>"2015-12-31" GROUP BY EMAIL;
++---------------+-------------+
+| EMAIL         | ORDER_COUNT |
++---------------+-------------+
+| abc@gmail.com |           2 |
+| efg@gmail.com |           1 |
++---------------+-------------+

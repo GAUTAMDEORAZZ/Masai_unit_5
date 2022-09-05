@@ -1,0 +1,11 @@
+step1: download the jdbc driver related jar file and set that jar file in the classpath 
+of our project/application.
+
+
+step 2: load the jdbc driver (loading the jdbc driver related main class into the memory.)
+
+step 3: prepare the connection URL.'
+
+step 4: establish the connection
+
+step 5: after performing the CRUD (insert, select, update, delete)operation close the connection.

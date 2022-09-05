@@ -1,0 +1,11 @@
+In java The life cycle of A THREAD is following
+a.New state
+b. Runnable state
+c. Running state
+d. Blocked state
+e. Dead state
+a)New State:-When a new Thread is created ,it is always a state where execution is not be started
+b)Runnable : When thread is ready to be executed his job.
+c)Running State:-When the thread is invoked start() method then it is called active or running state.
+d)Blocked State:-WhenEver a thread is inactive for a span time then either thread is blocked state or waiting state
+e) State:-When the thread at terminated state thats means when thread completed it jobs its is terminated normally

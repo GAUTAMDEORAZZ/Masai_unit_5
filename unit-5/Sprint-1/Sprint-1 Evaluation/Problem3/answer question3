@@ -1,0 +1,5 @@
+The Upper bound wildCard used when you want to relax the restriction on a variables.
+if you want to write a method that works on list List<Integer> ,List<Number>, List<Double> you can do this using an uppar bounde wildcard
+
+LowerBound Wildcards:
+it is express using the wildcard character (?) followed by super keyword .
